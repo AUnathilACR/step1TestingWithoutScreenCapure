@@ -1,12 +1,4 @@
 # Maven
-- task: VSTest@2
-  inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*test*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
 
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
@@ -33,7 +25,13 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
-- task: PublishCodeCoverageResults@1
+- task: VSTest@2
   inputs:
-    codeCoverageTool: 'JaCoCo'
-    summaryFileLocation: 'resultCodeCoverage'
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\step1TestingWithoutScreenCapure.*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    runTestsInIsolation: true
+    codeCoverageEnabled: true
